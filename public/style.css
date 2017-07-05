@@ -1,0 +1,16 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+#instructions {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+}
+canvas {
+  border: 3px solid #444;
+}
+.canvas-container {
+}

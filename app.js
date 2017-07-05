@@ -12,9 +12,9 @@ app.use(express.static('public'));
 io.set('log level', 1);
 
 io.sockets.on('connection', function (socket) {
-    socket.on('mousemove', function (data) {
-        socket.broadcast.emit('moving', data);
-    });
+  socket.on('mousemove', function (data) {
+    socket.broadcast.emit('moving', data);
+  });
 });
 
 var port = process.env.PORT || 8080;
