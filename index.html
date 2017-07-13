@@ -12,11 +12,13 @@
     <script src="client.js"></script>
   </head>
   <body>
-    <div id="cursors"></div>
     <div class="canvas-container">
-      <canvas id="paper" width="1200" height="600">
-        Your browser needs to support canvas for this to work!
-      </canvas>
+      <!-- make cursors rel to canvas -->
+      <div id="cursors">
+        <canvas id="paper" width="1200" height="600">
+          Your browser needs to support canvas for this to work!
+        </canvas>
+      </div>
     </div>
     <hgroup id="instructions">
     <h1>Draw anywhere!</h1>
@@ -24,7 +26,7 @@
     <h3>Tip: if the stage gets dirty, simply reload the page</h3>
     </hgroup>
     <input id="color-picker" type="color" />
-    <input id="brush-size-input" type="text" />
+    <input id="brush-size-input" type="text" placeholder="brush size" />
     <button id="brush-size-btn">submit</button>
     <span id="brush-size"></span>
   </body>

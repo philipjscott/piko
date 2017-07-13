@@ -1,5 +1,5 @@
-function init() {
-
+function init(width) {
+  $('#brush-size').html(width);
 }
 
 $(function(){
@@ -22,6 +22,8 @@ $(function(){
   var socket = io();
   var color = '#000';
   var myBrushWidth = 10;
+
+  init(myBrushWidth);
 
   $('#color-picker').bind('change', function(e) {
     color = e.target.value;
@@ -54,10 +56,12 @@ $(function(){
   });
 
   canvas.on('mousedown',function(e){
+    var x = e.pageX - $(e.target).offset().left;
+    var y = e.pageY - $(e.target).offset().top;
     e.preventDefault();
     drawing = true;
-    prev.x = e.pageX;
-    prev.y = e.pageY;
+    prev.x = x;
+    prev.y = y;
 
     // Hide the instructions
     instructions.fadeOut();
@@ -69,11 +73,13 @@ $(function(){
 
   var lastEmit = $.now();
 
-  doc.on('mousemove',function(e){
+  canvas.on('mousemove',function(e){
+    var x = e.pageX - $(e.target).offset().left;
+    var y = e.pageY - $(e.target).offset().top;
     if($.now() - lastEmit > 30){
       socket.emit('mousemove',{
-        'x': e.pageX,
-        'y': e.pageY,
+        'x': x,
+        'y': y,
         'drawing': drawing,
         'color': color,
         'id': id,
@@ -82,10 +88,10 @@ $(function(){
       lastEmit = $.now();
     }
     if(drawing){
-      drawLine(prev.x, prev.y, e.pageX, e.pageY, color, myBrushWidth);
+      drawLine(prev.x, prev.y, x, y, color, myBrushWidth);
 
-      prev.x = e.pageX;
-      prev.y = e.pageY;
+      prev.x = x;
+      prev.y = y;
     }
   });
 
