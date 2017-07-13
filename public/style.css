@@ -5,12 +5,22 @@ html, body {
 #instructions {
   position: absolute;
   top: 50px;
+  background-color: #444;
+  color: white;
   width: 100%;
   text-align: center;
   font-family: Helvetica, Arial, sans-serif;
 }
 canvas {
   border: 3px solid #444;
+}
+.cursor {
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: black;
+  position: absolute;
 }
 .canvas-container {
 }

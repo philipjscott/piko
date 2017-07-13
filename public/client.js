@@ -1,5 +1,4 @@
 $(function(){
-  console.log('works');
   if(!('getContext' in document.createElement('canvas'))){
     alert('Sorry, it looks like your browser does not support canvas!');
     return false;
@@ -20,7 +19,7 @@ $(function(){
 
   socket.on('moving', function (data) {
     if(! (data.id in clients)){
-      cursors[data.id] = $('<div class="cursor">').appendTo('#cursors');
+      cursors[data.id] = $('<div class="cursor">').appendTo($('#cursors'));
     }
     cursors[data.id].css({
       'left' : data.x,
