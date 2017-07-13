@@ -1,3 +1,7 @@
+function init() {
+
+}
+
 $(function(){
   if(!('getContext' in document.createElement('canvas'))){
     alert('Sorry, it looks like your browser does not support canvas!');
@@ -17,6 +21,7 @@ $(function(){
   var cursors = {};
   var socket = io();
   var color = '#000';
+  var myBrushWidth = 10;
 
   $('#color-picker').bind('change', function(e) {
     color = e.target.value;
@@ -28,16 +33,25 @@ $(function(){
     }
     cursors[data.id].css({
       'left' : data.x,
-      'top' : data.y
+      'top' : data.y,
+      'height' : data.rad,
+      'width' : data.rad,
+      'margin-left' : -data.rad / 2,
+      'margin-top' : -data.rad / 2
     });
     if(data.drawing && clients[data.id]){
-      drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y, data.color);
+      drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y, data.color, data.rad);
     }
     clients[data.id] = data;
     clients[data.id].updated = $.now();
   });
 
   var prev = {};
+
+  $('#brush-size-btn').on('click', function() {
+    myBrushWidth = $('#brush-size-input').val();
+    $('#brush-size').html(myBrushWidth);
+  });
 
   canvas.on('mousedown',function(e){
     e.preventDefault();
@@ -62,12 +76,13 @@ $(function(){
         'y': e.pageY,
         'drawing': drawing,
         'color': color,
-        'id': id
+        'id': id,
+        'rad': myBrushWidth
       });
       lastEmit = $.now();
     }
     if(drawing){
-      drawLine(prev.x, prev.y, e.pageX, e.pageY, color);
+      drawLine(prev.x, prev.y, e.pageX, e.pageY, color, myBrushWidth);
 
       prev.x = e.pageX;
       prev.y = e.pageY;
@@ -84,9 +99,11 @@ $(function(){
     }
   },10000);
 
-  function drawLine(fromx, fromy, tox, toy, lineColor){
+  function drawLine(fromx, fromy, tox, toy, lineColor, width){
     //beginPath needed or segments won't be diff colours
     ctx.beginPath();
+    ctx.lineCap = 'round';
+    ctx.lineWidth = width;
     ctx.moveTo(fromx, fromy);
     ctx.lineTo(tox, toy);
     ctx.strokeStyle = lineColor;
