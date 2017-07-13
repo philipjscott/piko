@@ -16,6 +16,11 @@ $(function(){
   var clients = {};
   var cursors = {};
   var socket = io();
+  var color = '#000';
+
+  $('#color-picker').bind('change', function(e) {
+    color = e.target.value;
+  });
 
   socket.on('moving', function (data) {
     if(! (data.id in clients)){
@@ -26,7 +31,7 @@ $(function(){
       'top' : data.y
     });
     if(data.drawing && clients[data.id]){
-      drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y);
+      drawLine(clients[data.id].x, clients[data.id].y, data.x, data.y, data.color);
     }
     clients[data.id] = data;
     clients[data.id].updated = $.now();
@@ -56,12 +61,13 @@ $(function(){
         'x': e.pageX,
         'y': e.pageY,
         'drawing': drawing,
+        'color': color,
         'id': id
       });
       lastEmit = $.now();
     }
     if(drawing){
-      drawLine(prev.x, prev.y, e.pageX, e.pageY);
+      drawLine(prev.x, prev.y, e.pageX, e.pageY, color);
 
       prev.x = e.pageX;
       prev.y = e.pageY;
@@ -78,9 +84,12 @@ $(function(){
     }
   },10000);
 
-  function drawLine(fromx, fromy, tox, toy){
+  function drawLine(fromx, fromy, tox, toy, lineColor){
+    //beginPath needed or segments won't be diff colours
+    ctx.beginPath();
     ctx.moveTo(fromx, fromy);
     ctx.lineTo(tox, toy);
+    ctx.strokeStyle = lineColor;
     ctx.stroke();
   }
 });

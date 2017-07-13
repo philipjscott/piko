@@ -8,9 +8,6 @@ app.get('/', function(req, res) {
 });
 app.use(express.static('public'));
 
-//logs
-io.set('log level', 1);
-
 io.sockets.on('connection', function (socket) {
   socket.on('mousemove', function (data) {
     socket.broadcast.emit('moving', data);
