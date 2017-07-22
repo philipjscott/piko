@@ -55,7 +55,7 @@ $(function(){
     $('#brush-size').html(myBrushWidth);
   });
 
-  canvas.on('mousedown',function(e){
+  canvas.on('mousedown touchmove',function(e){
     var x = e.pageX - $(e.target).offset().left;
     var y = e.pageY - $(e.target).offset().top;
     e.preventDefault();
@@ -94,6 +94,33 @@ $(function(){
       prev.y = y;
     }
   });
+
+  canvas.on('touchmove',function(event){
+    var e = event.originalEvent.touches[0];
+    var x = e.pageX - $(e.target).offset().left;
+    var y = e.pageY - $(e.target).offset().top;
+    if($.now() - lastEmit > 30){
+      socket.emit('mousemove',{
+        'x': x,
+        'y': y,
+        'drawing': drawing,
+        'color': color,
+        'id': id,
+        'rad': myBrushWidth
+      });
+      lastEmit = $.now();
+    }
+    if(drawing){
+      drawLine(prev.x, prev.y, x, y, color, myBrushWidth);
+
+      prev.x = x;
+      prev.y = y;
+    }
+  });
+
+
+
+
 
   setInterval(function(){
     for(ident in clients){
