@@ -1,5 +1,5 @@
 language: node_js
-before_script:
+install:
 - yarn install
 node_js:
 - node
