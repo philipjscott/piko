@@ -1,16 +1,33 @@
 {
   "name": "piko",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple drawing app",
   "scripts": {
-    "start": "node app.js",
-    "test": "nodemon app.js"
+    "start": "node server.js",
+    "lint": "standard",
+    "fix": "standard --fix",
+    "test": "yarn run lint",
+    "build": "parcel build client/index.html --public-url '.'",
+    "dev:c": "parcel client/index.html --open",
+    "dev:s": "nodemon server/bin/server.js --ignore client/ --ignore dist/",
+    "dev": "concurrently \"yarn run dev:*\""
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.3",
-    "socket.io": "^2.0.3"
+    "colyseus": "^0.9.24",
+    "config": "^3.0.1"
+  },
+  "devDependencies": {
+    "@colyseus/monitor": "^0.1.10",
+    "@hyperapp/logger": "^0.5.0",
+    "colyseus.js": "^0.9.15",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "hyperapp": "^1.2.9",
+    "nodemon": "^1.18.9",
+    "parcel-bundler": "^1.11.0",
+    "standard": "^12.0.1"
   }
 }
