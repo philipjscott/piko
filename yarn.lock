@@ -675,6 +675,11 @@
   resolved "https://registry.yarnpkg.com/@hyperapp/logger/-/logger-0.5.0.tgz#627404507c45d38fb5190343f84b4da377e103b8"
   integrity sha512-f69Kf3Zl6LBC1sLcP3z20yDSxqfZnl65Pl8s4Tj9vED8P3CbqP7BChzLg7aIuka0bhHL1JEFDc0T/8Nmd/4rFA==
 
+"@hyperapp/router@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@hyperapp/router/-/router-0.7.1.tgz#affa142997308de38a6ad72bae9c245947b11e11"
+  integrity sha512-q2CwqJUDlBVottxjwfyN+12uAx4gSoSm/60WO3IvPYpS4xtckSdWmgAWSXDOsTgBQRBzR68k3CXbBKZsj+m6DA==
+
 "@iarna/toml@^2.2.0":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.1.tgz#82d0993d8882bb05e0645fbb4731d9e939e895b3"
